@@ -2,7 +2,6 @@ import "./App.css";
 import React, { useState, useEffect } from "react";
 import CaroGame from "./components/caroGame";
 import SignUp from "./components/signUp";
-// import Times from './components/times';
 
 function App() {
   const [users, setUsers] = useState({ playeronename: "", playertwoname: "" });
@@ -18,7 +17,7 @@ function App() {
       else if (times === 0) {
         setTimeOut(true);
         return;
-      } else return;
+      }
     }, 1000);
     return () => clearInterval(myInterval);
   }, [times]);

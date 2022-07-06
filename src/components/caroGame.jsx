@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "../index.css";
 
-const defaultWidth = 30;
-const defaultHeight = 30;
+const defaultWidth = 25;
+const defaultHeight = 25;
 const minSize = 5;
-const maxSize = 30;
+const maxSize = 35;
 const nSquareToWin = 5;
 
 function Square(props) {
@@ -95,7 +95,6 @@ const CaroGame = (props) => {
   for (let i = 0; i < defaultHeight; i++) {
     tmpArr[i] = Array(defaultWidth).fill(null);
   }
-
   const [state, setState] = useState({
     inputWidth: defaultWidth,
     inputHeight: defaultHeight,
@@ -125,6 +124,7 @@ const CaroGame = (props) => {
     }
     squares[i][j] = state.xIsNext ? "X" : "O";
     setState({
+      ...state,
       history: history.concat([
         {
           squares: squares,
@@ -137,14 +137,33 @@ const CaroGame = (props) => {
   };
 
   const handleChangeWidth = (e) => {
+    if (e.target.value > maxSize || e.target.value < minSize) {
+      alert("max or min size has been reached");
+      return;
+    }
     const val = Number(e.target.value);
-    this.setState({ inputWidth: val });
+    setState({ ...state, inputWidth: val });
     if (val >= minSize && val <= maxSize) {
       let tmpArr = Array(state.height);
       for (let i = 0; i < state.height; i++) {
         tmpArr[i] = Array(val).fill(null);
       }
-      this.setState({
+      // update inputwidth too
+      setState({
+        ...state,
+        inputWidth: val,
+        width: val,
+        history: [
+          {
+            squares: tmpArr,
+            location: null,
+          },
+        ],
+        stepNumber: 0,
+        xIsNext: true,
+      });
+      console.log({
+        ...state,
         width: val,
         history: [
           {
@@ -158,14 +177,20 @@ const CaroGame = (props) => {
     }
   };
   const handleChangeHeight = (e) => {
+    if (e.target.value > maxSize || e.target.value < minSize) {
+      alert("max or min size has been reached");
+      return;
+    }
     const val = Number(e.target.value);
-    this.setState({ inputHeight: val });
+    setState({ ...state, inputHeight: val });
     if (val >= minSize && val <= maxSize) {
       let tmpArr = Array(val);
       for (let i = 0; i < val; i++) {
         tmpArr[i] = Array(state.width).fill(null);
       }
-      this.setState({
+      setState({
+        ...state,
+        inputHeight: Number(val),
         height: Number(val),
         history: [
           {
@@ -187,8 +212,10 @@ const CaroGame = (props) => {
     props.setWin(true);
     status =
       "Winner: " +
-      winner.val +
-      " " +
+      (winner.val === "x"
+        ? props.users.playeronename
+        : props.users.playertwoname) +
+      " at: " +
       ("0" + parseInt((1200 - props.times) / 60)).slice(-2) +
       ":" +
       ("0" + ((1200 - props.times) % 60)).slice(-2);
@@ -211,7 +238,8 @@ const CaroGame = (props) => {
           type="number"
           placeholder="Chiều rộng"
           value={state.inputWidth}
-          onChange={handleChangeWidth}
+          className="outline-none mt-1"
+          onChange={(e) => handleChangeWidth(e)}
         />
         <br />
         <span className="fixed-size">Chiều cao:</span>
@@ -219,6 +247,7 @@ const CaroGame = (props) => {
           type="number"
           placeholder="Chiều cao"
           value={state.inputHeight}
+          className="outline-none mt-1"
           onChange={handleChangeHeight}
         />
       </div>
