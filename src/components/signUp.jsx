@@ -6,6 +6,14 @@ const SignUp = (props) => {
     users[e.target.name] = e.target.value;
     props.setUsers(users);
   };
+
+  const handleSetPlay = () => {
+    if (props.users.playeronename !== "" && props.users.playertwoname !== "") {
+      props.setPlay(true);
+      props.setTimes(1200);
+    }
+    return;
+  };
   return (
     <section>
       <main>
@@ -13,7 +21,7 @@ const SignUp = (props) => {
           <input
             type="text"
             placeholder="Player 1 name"
-            className="outline-none block"
+            className="outline-none block border p-2 rounded-[3px]"
             name="playeronename"
             autoFocus
             onChange={(e) => handleChangeUsers(e)}
@@ -21,13 +29,13 @@ const SignUp = (props) => {
           <input
             type="text"
             placeholder="Player 2 name"
-            className="outline-none"
+            className="outline-none block border p-2 mt-[5px] rounded-[3px]"
             name="playertwoname"
             onChange={(e) => handleChangeUsers(e)}
           ></input>
           <button
-            className="block border p-1 bg-green-600 text-white"
-            onClick={() => props.setPlay(!props.play)}
+            className="block border p-2 bg-green-600 text-white mt-[5px] rounded-[3px]"
+            onClick={handleSetPlay}
           >
             Play
           </button>
