@@ -2,6 +2,8 @@ import "./App.css";
 import React, { useState, useEffect } from "react";
 import CaroGame from "./components/caroGame";
 import SignUp from "./components/signUp";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [users, setUsers] = useState({ playeronename: "", playertwoname: "" });
@@ -28,6 +30,7 @@ function App() {
     ("0" + (times % 60)).slice(-2);
   return (
     <div>
+      <ToastContainer />
       {users.playeronename === "" ||
       users.playertwoname === "" ||
       play === false ? (

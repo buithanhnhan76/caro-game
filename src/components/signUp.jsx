@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "react-toastify";
 
 const SignUp = (props) => {
   const handleChangeUsers = (e) => {
@@ -11,8 +12,9 @@ const SignUp = (props) => {
     if (props.users.playeronename !== "" && props.users.playertwoname !== "") {
       props.setPlay(true);
       props.setTimes(1200);
+    } else {
+      toast.error("Please fill on the infomation");
     }
-    return;
   };
   return (
     <section>
@@ -29,13 +31,13 @@ const SignUp = (props) => {
           <input
             type="text"
             placeholder="Player 2 name"
-            className="outline-none block border p-2 mt-[5px] rounded-[3px]"
+            className="outline-none block border p-2 mt-[5px] rounded-[3px] "
             name="playertwoname"
             onChange={(e) => handleChangeUsers(e)}
           ></input>
           <div className="max-w-[70px] w-full group ">
             <button
-              className="border p-3 bg-green-600 w-full text-white mt-[5px]  rounded-[3px] text-left"
+              className="border p-3 bg-green-600 w-full text-white mt-[5px]  rounded-[3px] text-left group-hover:border"
               onClick={handleSetPlay}
             >
               Play{" "}
