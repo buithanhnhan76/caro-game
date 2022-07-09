@@ -33,12 +33,15 @@ const SignUp = (props) => {
             name="playertwoname"
             onChange={(e) => handleChangeUsers(e)}
           ></input>
-          <button
-            className="block border p-2 bg-green-600 text-white mt-[5px] rounded-[3px]"
-            onClick={handleSetPlay}
-          >
-            Play
-          </button>
+          <div className="max-w-[70px] w-full group ">
+            <button
+              className="border p-3 bg-green-600 w-full text-white mt-[5px]  rounded-[3px] text-left"
+              onClick={handleSetPlay}
+            >
+              Play{" "}
+              <span className="hidden group-hover:inline-block">{`>`}</span>
+            </button>
+          </div>
         </div>
       </main>
     </section>
